@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">CrimeScout</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+
+    <string name="reset_link_instruction">Enter the email address used for registration</string>
+    <string name="button_reset_link">Get Reset Link</string>
+    <string name="error">Error</string>
+    <string name="resetLink">Reset link send to your email</string>
+    <string name="logoutString">Are you sure you want to log out?</string>
+    <string-array name="category">
+        <item>violent crime</item>
+        <item>property crime</item>
+        <item>white collar crime</item>
+        <item>organized crime</item>
+
+    </string-array>
+    <string name="permission_d">Permission denied</string>
+    <string name="permission_success">Permission granted successfully</string>
+    <string name="gps_n">GPS not enable</string>
+    <string name="gps_instruction">GPS is disabled. Do you want to go to settings?</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps_success">GPS Enable successfully</string>
+    <string name="gps_need">Please Enable Gps</string>
+    <string name="location_update">Location updated </string>
+    <string name="current_location">"Current Location"</string>
+    <string name="setting">Settings</string>
+
+</resources>
