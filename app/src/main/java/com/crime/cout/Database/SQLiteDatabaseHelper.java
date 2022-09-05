@@ -5,11 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.crime.cout.Models.CrimeModel;
+import com.crime.cout.Web.HttpRequestHelper;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +81,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<CrimeModel> getAllCrime(){
-        SQLiteDatabase db=this.getReadableDatabase();
+        /*SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.rawQuery(" select * from "+ CRIME_TABLE ,null );
         List<CrimeModel> crimeModels=new ArrayList<>();
         if(cursor.moveToFirst()){
@@ -92,8 +95,17 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
                     crimeModels.add(crimeModel);
             }while (cursor.moveToNext()); // move cursor to next row
         }
-        return crimeModels;
+        return crimeModels;*/
+        if (HttpRequestHelper.getMyList() != null) {
+            return HttpRequestHelper.getMyList();
+        }
+        else{
+            Toast.makeText(context.getApplicationContext(),"List Null!", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
     }
+
     public List<CrimeModel> getCrimeByZipCode(String zipCode, String category){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.rawQuery(" select * from "+ CRIME_TABLE +" where " + ZIP_CODE+"='"+ zipCode +"'",null );

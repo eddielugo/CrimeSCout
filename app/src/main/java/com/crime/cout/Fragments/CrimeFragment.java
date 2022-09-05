@@ -72,8 +72,8 @@ public class CrimeFragment extends Fragment implements OnMapReadyCallback, GpsUp
     SQLiteDatabaseHelper sqLiteDatabaseHelper;
     List<CrimeModel> crimeModels;
     HttpRequestHelper requestHelper = new HttpRequestHelper(); //Added 8/26/22
-
     RequestQueue requestQueue;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,7 @@ public class CrimeFragment extends Fragment implements OnMapReadyCallback, GpsUp
         textViewZipCode=view.findViewById(R.id.textViewZipCode);
         buttonSearch=view.findViewById(R.id.buttonSearch);
 
+
         //Search button
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,8 +120,22 @@ public class CrimeFragment extends Fragment implements OnMapReadyCallback, GpsUp
                 }else {
                     crimeModels.clear();
                     //This is the line that renders the view based on DB retrieval
-                    crimeModels.addAll(requestHelper.MakeHttpGetRequest(zipCode, requestQueue));
+                    requestHelper.MakeHttpGetRequest(zipCode, requestQueue);//added 9-3-22
+                    //TODO: Problem is here
+//                    try
+//                    {
+//                        Thread.sleep(5000);
+//                    }
+//                    catch (InterruptedException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+
+                    System.out.println("debuzz"+ requestHelper.getMyList());
+                    crimeModels.addAll(requestHelper.getMyList());//added 9-3-22
+                    System.out.println("numOfelem"+crimeModels.size());
                     for(int i=0;i<crimeModels.size();i++){
+                        System.out.println("numOfelem2" + crimeModels.get(i));
                         drawMarker(i+"","crime",crimeModels.get(i).getCrimeName(),
                                 new LatLng(Double.parseDouble(crimeModels.get(i).getLatitude()),Double.parseDouble(crimeModels.get(i).getLongitude())),
                                 crimeModels.get(i).getCrimeType());
@@ -128,7 +143,6 @@ public class CrimeFragment extends Fragment implements OnMapReadyCallback, GpsUp
                     if(crimeModels.size()<1){
                         Toast.makeText(getContext(), "Nothing found", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });
@@ -159,8 +173,6 @@ public class CrimeFragment extends Fragment implements OnMapReadyCallback, GpsUp
                 }else {
                     markerClicked(marker);
                 }
-
-
 
                 return true;
             }
